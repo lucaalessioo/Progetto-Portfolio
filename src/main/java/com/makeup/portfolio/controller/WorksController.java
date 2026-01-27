@@ -14,7 +14,7 @@ import com.makeup.portfolio.repository.WorksRepository;
 
     
 @RestController // Indica che questa classe restituisce dati (JSON) e non pagine HTML
-@RequestMapping("/api/lavori") // L'URL base per tutte le chiamate a questo controller
+@RequestMapping("/api/works") // L'URL base per tutte le chiamate a questo controller
 @CrossOrigin(origins = "*") // Permette al Front-end di chiamare il Back-end senza blocchi di sicurezza (CORS)
 public class WorksController {
 
@@ -29,7 +29,7 @@ public class WorksController {
 
     // Metodo per ottenere i dettagli di un singolo lavoro
     @GetMapping("/{id}")
-    public Works getLavoroById(@PathVariable Long id) {
+    public Works getWorksById(@PathVariable Long id) {
         return worksRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Lavoro non trovato con id: " + id));
     }
