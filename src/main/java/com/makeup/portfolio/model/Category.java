@@ -2,6 +2,8 @@ package com.makeup.portfolio.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,11 +14,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "categories")
 @Data
-public class Categories {
+@ToString(exclude = "works") // Evita che anche il metodo toString() vada in loop
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +32,7 @@ public class Categories {
     // Relazione inversa: Una categoria ha molti lavori
     // mappedBy indica il nome del campo nella classe Work
     @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL)
-    private List<Works> works;
+    @JsonIgnore
+    private List<Work> works;
     
 }

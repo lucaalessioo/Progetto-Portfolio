@@ -16,7 +16,7 @@ import lombok.Data;
 @Entity
 @Table(name="works")
 @Data
-public class Works {
+public class Work {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +29,12 @@ public class Works {
     private String description;
 
     @Column(nullable = false)
-    private String imgageUrl;
+    private String imageUrl;
 
     // Relazione ManyToOne: Molti lavori appartengono a una categoria
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Categories categories;
+    private Category categories;
     
     private LocalDateTime createdAt;
 
