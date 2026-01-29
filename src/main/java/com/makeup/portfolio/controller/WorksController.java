@@ -4,7 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +18,9 @@ import com.makeup.portfolio.DTO.WorksDTO;
 import com.makeup.portfolio.service.WorksService;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-
-
-    
 @RestController // Indica che questa classe restituisce dati (JSON) e non pagine HTML
 @RequestMapping("/api/works") // L'URL base per tutte le chiamate a questo controller
+@CrossOrigin(origins = "http://localhost:5173")
 public class WorksController {
 
 @Autowired

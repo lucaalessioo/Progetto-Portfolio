@@ -14,7 +14,7 @@ export default function Hero() {
       </video>
 
       {/* OVERLAY SCURO (Serve per far leggere bene le scritte sopra il video) */}
-<div className="relative z-30 text-center px-4">
+        <div className="relative z-30 text-center px-4">
         
         {/* NOME IN CORSIVO */}
         <p className="text-3xl md:text-4xl font-serif italic text-white mb-0 drop-shadow-lg">

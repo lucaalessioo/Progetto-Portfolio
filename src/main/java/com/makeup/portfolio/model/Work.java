@@ -28,7 +28,7 @@ public class Work {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "img_url", nullable = false)
     private String imageUrl;
 
     // Relazione ManyToOne: Molti lavori appartengono a una categoria

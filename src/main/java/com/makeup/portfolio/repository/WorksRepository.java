@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.makeup.portfolio.model.Work;
 
 @Repository
-public interface WorksRepository extends JpaRepository<Work,Long>{
+public interface WorksRepository extends JpaRepository<Work, Long>{
     
 }
