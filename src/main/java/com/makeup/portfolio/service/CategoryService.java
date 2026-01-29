@@ -3,10 +3,12 @@ package com.makeup.portfolio.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.makeup.portfolio.model.Category;
 import com.makeup.portfolio.repository.CategoryRepository;
 
+@Service
 public class CategoryService {
     
     @Autowired

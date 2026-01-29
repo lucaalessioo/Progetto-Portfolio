@@ -1,15 +1,22 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero'; // Aggiungi questo!
+import Hero from './components/Hero';
+import Portfolio from './components/Portfolio';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main> 
-        <Hero />
-        {/* Qui sotto arriverà il Portfolio preso dal database! */}
-      </main>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <Routes>
+          {/* Pagina Principale con il Video */}
+          <Route path="/" element={<Hero />} />
+          
+          {/* Pagina dedicata al Portfolio */}
+          <Route path="/portfolio" element={<Portfolio />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

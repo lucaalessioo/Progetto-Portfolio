@@ -13,7 +13,7 @@ public class WorksMapper {
         dto.setId(work.getId());
         dto.setTitle(work.getTitle());
         dto.setDescription(work.getDescription());
-        dto.setImageUrl(work.getImageUrl()); // Occhio al typo 'imgageUrl' nel tuo model!
+        dto.setImageUrl(work.getImageUrl()); 
         if (work.getCategories() != null) {
             dto.setCategoryId(work.getCategories().getId());
             dto.setCategoryName(work.getCategories().getName());
