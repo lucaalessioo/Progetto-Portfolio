@@ -6,7 +6,7 @@ export default function Navbar() {
       {/* ... i tuoi Login/Register ... */}
 
       <div className="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wider text-gray-600">
-        {/* Cambia l'<a> in <Link> */}
+       
         <Link to="/" className="hover:text-pink-500 transition">Home</Link>
         <Link to="/portfolio" className="hover:text-pink-500 transition">Portfolio</Link>
         <a href="#servizi" className="hover:text-pink-500 transition">Servizi</a>
