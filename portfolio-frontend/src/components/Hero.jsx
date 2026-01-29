@@ -1,7 +1,6 @@
 export default function Hero() {
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* VIDEO DI SFONDO */}
       <video
         autoPlay
         loop
@@ -17,7 +16,7 @@ export default function Hero() {
         <div className="relative z-30 text-center px-4">
         
         {/* NOME IN CORSIVO */}
-        <p className="text-3xl md:text-4xl font-serif italic text-white mb-0 drop-shadow-lg">
+        <p className="text-3xl md:text-4xl font-serif italic text-red-600 mb-0 drop-shadow-lg">
           Federica Sofia Petrillo
         </p>
         
@@ -27,7 +26,7 @@ export default function Hero() {
         </p>
 
         {/* TITOLO PRINCIPALE (L'arte del Makeup) */}
-        <h2 className="text-5xl md:text-8xl font-serif italic text-white mb-6 drop-shadow-2xl">
+        <h2 className="text-5xl md:text-8xl font-serif italic text-red-600 mb-6 drop-shadow-2xl">
           L'arte del Makeup
         </h2>
 
