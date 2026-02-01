@@ -12,13 +12,14 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:5173")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*") // <--- AGGIUNTO: permette l'invio del Token JWT
+                .allowCredentials(true);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Usiamo il percorso assoluto per evitare errori di puntamento su Windows
-        // Nota: usiamo tre slash dopo 'file:' e lo slash finale
+        // Lasciamo tutto invariato come lo avevi tu
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:///C:/Users/lucaa/Documents/GitHub/Progetto-Portfolio/uploads/")
                 .setCachePeriod(0);

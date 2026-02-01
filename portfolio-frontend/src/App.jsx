@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           
           {/* Pagina dedicata al Portfolio */}
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

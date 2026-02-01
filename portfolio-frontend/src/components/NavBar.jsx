@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'; // Importa questo!
+import { Link } from 'react-router-dom'; 
 
 export default function Navbar() {
   return (
@@ -9,7 +9,23 @@ export default function Navbar() {
        
         <Link to="/" className="hover:text-pink-500 transition">Home</Link>
         <Link to="/portfolio" className="hover:text-pink-500 transition">Portfolio</Link>
-        <a href="#servizi" className="hover:text-pink-500 transition">Servizi</a>
+        <Link to="/servizi" className="hover:text-pink-500 transition">Servizi</Link>
+        
+      </div>
+      {/* LOGIN / REGISTER (Destra) */}
+      <div className="flex items-center space-x-5 text-xs font-bold uppercase tracking-widest">
+        <Link 
+          to="/login" 
+          className="text-gray-600 hover:text-[#8b3121] transition border-b border-transparent hover:border-[#8b3121]"
+        >
+          Login
+        </Link>
+        <Link 
+          to="/register" 
+          className="bg-[#8b3121] text-white px-4 py-2 rounded-full hover:bg-[#a64332] transition shadow-md"
+        >
+          Register
+        </Link>
       </div>
     </nav>
   );
