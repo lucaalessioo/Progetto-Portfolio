@@ -7,6 +7,7 @@ export default function Portfolio() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
   
   const isAdmin = localStorage.getItem('token') !== null;
 
@@ -16,6 +17,20 @@ export default function Portfolio() {
       .then(data => setPhotos(data))
       .catch(error => console.error('Errore nel caricamento', error));
   }, []);
+
+  // useEffect per chiudere il menu se clicchi fuori
+  useEffect(() => {
+  const closeMenu = () => setOpenMenuId(null);
+  
+  // Quando il menu è aperto, aggiungiamo un listener globale
+  if (openMenuId !== null) {
+    window.addEventListener('click', closeMenu);
+  }
+  
+  // Pulizia del listener
+  return () => window.removeEventListener('click', closeMenu);
+}, [openMenuId]);
+
 
   //parte di inserimento foto 
   const handleSubmit = async (e) => {
@@ -49,6 +64,31 @@ export default function Portfolio() {
     alert("Errore tecnico: " + error.message);
   }
   };
+
+  // 1. Funzione per eliminare la foto
+const handleDelete = async (id) => {
+  if (window.confirm("Vuoi davvero eliminare questa immagine?")) {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:8080/api/works/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        // Aggiorna lo stato togliendo la foto eliminata
+        setPhotos(photos.filter(photo => photo.id !== id));
+        alert("Immagine rimossa con successo");
+      } else {
+        alert("Errore durante l'eliminazione");
+      }
+    } catch (error) {
+      console.error("Errore:", error);
+    }
+  }
+};
 
   return (
 /* 1. SFONDO CHIARO CIRCOSTANTE: bg-[#f4f1ea] (preso dallo stile Canva) */
@@ -130,6 +170,43 @@ export default function Portfolio() {
         key={photo.id} 
         className="group relative w-full max-w-md transition-all duration-500"
       >
+
+      {/* MENU ADMIN (I tre puntini) */}
+    {isAdmin && (
+      <div className="absolute top-4 right-4 z-30">
+       <button 
+          onClick={(e) => {
+            e.stopPropagation(); 
+            setOpenMenuId(openMenuId === photo.id ? null : photo.id);
+          }}
+          className="bg-white/80 hover:bg-white p-2 rounded-full shadow-md transition-all"
+        >
+          {/* Icona tre puntini verticali */}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          </svg>
+        </button>
+
+        {/* DROPDOWN MENU */}
+        {openMenuId === photo.id && (
+          <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-xl border border-gray-100 py-1 z-40">
+            <button 
+              onClick={() => { console.log("Modifica", photo.id); setOpenMenuId(null); }}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            >
+              <span>✏️</span> Modifica
+            </button>
+            <button 
+              onClick={() => { handleDelete(photo.id); setOpenMenuId(null); }}
+              className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+            >
+              <span>🗑️</span> Rimuovi
+            </button>
+          </div>
+        )}
+      </div>
+    )}
+
         {/* Effetto cornice per la foto */}
         <div className="relative p-1 bg-[#a64332] rounded-lg shadow-2xl"> 
           <img 
