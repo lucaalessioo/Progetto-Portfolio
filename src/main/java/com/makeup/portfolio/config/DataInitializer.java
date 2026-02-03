@@ -21,7 +21,7 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println(">>>> CONTROLLO CREAZIONE UTENTE ADMIN...");
 
-        String usernameAdmin = "federica_makeup"; // Metti lo username che preferisci
+        String usernameAdmin = "federica_makeup"; 
         
         if (utenteRepository.findByUsername(usernameAdmin).isEmpty()) {
             System.out.println(">>>> UTENTE NON TROVATO. CREAZIONE IN CORSO...");
@@ -29,7 +29,6 @@ public class DataInitializer implements CommandLineRunner {
             Utente admin = new Utente();
             admin.setUsername(usernameAdmin);
             
-            // Criptiamo la password reale
             String passwordInChiaro = "PassMakeUp2024!"; 
             admin.setPassword(passwordEncoder.encode(passwordInChiaro));
             
