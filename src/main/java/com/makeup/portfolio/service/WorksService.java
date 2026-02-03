@@ -80,4 +80,10 @@ public class WorksService {
         }
     }
 
+    public void deleteWork(Long id) {
+    worksRepository.deleteById(id);
+    // Nota: per ora cancelliamo solo il record sul DB. 
+    // Per pulire anche il file fisico servirebbe Files.delete(), ma partiamo dal DB.
+}
+
 }
