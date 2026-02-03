@@ -50,7 +50,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Niente sessioni su server
            .authorizeHttpRequests(auth -> auth
             
-    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // <--- AGGIUNGI QUESTA RIGA
+    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+    .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll() 
     .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
     .requestMatchers("/api/auth/**").permitAll()
     .requestMatchers(HttpMethod.POST, "/api/works/**", "/api/category/**").hasAnyAuthority("ADMIN", "ROLE_ADMIN")
