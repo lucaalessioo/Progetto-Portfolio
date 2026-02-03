@@ -80,6 +80,34 @@ public class WorksService {
         }
     }
 
+    // Metodo UPDATE
+    public WorksDTO updateWork(Long id, String title, String description, Long categoryId, MultipartFile file) {
+    Work work = worksRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Lavoro non trovato"));
+
+    work.setTitle(title);
+    work.setDescription(description);
+
+    Category category = categoryRepository.findById(categoryId)
+            .orElseThrow(() -> new RuntimeException("Categoria non trovata"));
+    work.setCategories(category);
+
+    // Se l'utente ha caricato una nuova foto, la sostituiamo
+    if (file != null && !file.isEmpty()) {
+        try {
+            String fileName = file.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir).resolve(fileName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            work.setImageUrl("/uploads/" + fileName);
+        } catch (IOException e) {
+            throw new RuntimeException("Errore nel salvataggio della nuova immagine");
+        }
+    }
+
+    Work updatedWork = worksRepository.save(work);
+    return worksMapper.toDto(updatedWork);
+}
+
     public void deleteWork(Long id) {
     worksRepository.deleteById(id);
     // Nota: per ora cancelliamo solo il record sul DB. 
