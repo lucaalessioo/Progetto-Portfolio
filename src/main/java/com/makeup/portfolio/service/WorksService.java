@@ -67,7 +67,7 @@ public class WorksService {
             Work work = new Work();
             work.setTitle(title);
             work.setDescription(description);
-            work.setImageUrl(fileName); // Questo è l'indirizzo che userà il frontend
+            work.setImageUrl("/uploads/" + fileName); // Questo è l'indirizzo che userà il frontend
             work.setCategories(category);
 
             // 5. Salviamo e convertiamo in DTO per il controller

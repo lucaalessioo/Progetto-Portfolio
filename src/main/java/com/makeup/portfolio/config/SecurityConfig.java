@@ -49,6 +49,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Obbligatorio disabilitarlo per API REST con JWT
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Niente sessioni su server
            .authorizeHttpRequests(auth -> auth
+            
     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // <--- AGGIUNGI QUESTA RIGA
     .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
     .requestMatchers("/api/auth/**").permitAll()

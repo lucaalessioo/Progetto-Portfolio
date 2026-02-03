@@ -24,8 +24,7 @@ export default function Hero() {
         <p className="text-xs md:text-sm uppercase tracking-[0.5em] text-pink-300 font-bold mb-8 drop-shadow-md">
           Make up Artist
         </p>
-
-        {/* TITOLO PRINCIPALE (L'arte del Makeup) */}
+        
         <h2 className="text-5xl md:text-8xl font-serif italic text-red-600 mb-6 drop-shadow-2xl">
           L'arte del Makeup 
         </h2>
