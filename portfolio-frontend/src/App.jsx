@@ -3,6 +3,7 @@ import Navbar from './components/NavBar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
 import Login from './components/Login';
+import Servizi from './components/Servizi';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           {/* Pagina dedicata al Portfolio */}
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/servizi" element={<Servizi />} />
         </Routes>
       </div>
     </Router>

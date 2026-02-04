@@ -13,9 +13,10 @@ export default function Navbar() {
   // Funzione per il Logout
   const handleLogout = () => {
     localStorage.removeItem("token"); // Rimuoviamo il permesso
+    localStorage.removeItem("role");
     closeMenu();
     navigate("/"); // Riportiamo l'utente alla Home
-    window.location.reload(); // Opzionale: rinfresca per aggiornare lo stato di tutti i componenti
+    window.location.reload(); // rinfresca per aggiornare lo stato di tutti i componenti
   };
 
   return (

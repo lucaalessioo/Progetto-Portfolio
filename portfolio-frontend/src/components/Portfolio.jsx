@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 export default function Portfolio() {
+  // stati delle entity
   const [photos, setPhotos] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // gestione menu foto e form per aggiornare o aggiungere una nuova foto
+  const [openMenuId, setOpenMenuId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingWork, setEditingWork] = useState(null); // null per nuovo, oggetto per modifica
 
@@ -14,9 +17,9 @@ export default function Portfolio() {
   const [categoryId, setCategoryId] = useState("");
   const [file, setFile] = useState(null);
 
-  const [openMenuId, setOpenMenuId] = useState(null);
   const userRole = localStorage.getItem("role");
-  const isAdmin = userRole === "ADMIN" || userRole === "ROLE_ADMIN";
+  const token = localStorage.getItem("token");
+  const isAdmin = token && (userRole === "ADMIN" || userRole === "ROLE_ADMIN");
 
   // 1. Caricamento dati iniziali
   useEffect(() => {
@@ -278,8 +281,8 @@ export default function Portfolio() {
                       e.stopPropagation();
                       setOpenMenuId(openMenuId === photo.id ? null : photo.id);
                     }}
-                 className="bg-white/30 backdrop-blur-md p-2 rounded-full shadow-sm hover:bg-white/60 transition-all duration-300 cursor-pointer text-[#5c2d2d] border border-white/40"
->
+                    className="bg-white/30 backdrop-blur-md p-2 rounded-full shadow-sm hover:bg-white/60 transition-all duration-300 cursor-pointer text-[#5c2d2d] border border-white/40"
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -290,18 +293,34 @@ export default function Portfolio() {
                     </svg>
                   </button>
                   {openMenuId === photo.id && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-xl py-1 z-40">
+                    <div className="absolute right-0 mt-2 w-40 bg-[#f4f1ea] rounded-xl shadow-2xl py-2 z-40 border border-[#d6c7b8] animate-fadeIn">
+                      {/* Bottone Modifica */}
                       <button
                         onClick={() => openEditModal(photo)}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                        className="w-full text-left px-4 py-3 text-sm text-[#5c2d2d] hover:bg-[#d6c7b8]/30 flex items-center gap-3 transition-colors cursor-pointer group"
                       >
-                        <span>✏️</span> Modifica
+                        <span className="group-hover:rotate-12 transition-transform">
+                          ✏️
+                        </span>
+                        <span className="font-bold uppercase text-[10px] tracking-widest">
+                          Modifica
+                        </span>
                       </button>
+
+                      {/* Divisore sottile tono su tono */}
+                      <div className="h-[1px] bg-[#d6c7b8] mx-2 my-1"></div>
+
+                      {/* Bottone Rimuovi */}
                       <button
                         onClick={() => handleDelete(photo.id)}
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                        className="w-full text-left px-4 py-3 text-sm text-red-700 hover:bg-red-50 flex items-center gap-3 transition-colors cursor-pointer group"
                       >
-                        <span>🗑️</span> Rimuovi
+                        <span className="group-hover:scale-110 transition-transform">
+                          🗑️
+                        </span>
+                        <span className="font-bold uppercase text-[10px] tracking-widest">
+                          Rimuovi
+                        </span>
                       </button>
                     </div>
                   )}
