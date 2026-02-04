@@ -37,7 +37,7 @@ useEffect(() => {
     .catch(error => console.error('Errore categorie:', error));
 }, []);
 
-  // 2. Chiusura automatica menu
+  // 2. Chiusura automatica menu tre puntini
   useEffect(() => {
     const closeMenu = () => setOpenMenuId(null);
     if (openMenuId !== null) window.addEventListener('click', closeMenu);
@@ -50,14 +50,14 @@ useEffect(() => {
     setTitle(photo.title);
     setDescription(photo.description);
     setCategoryId(photo.categories?.id || '');
-    setIsModalOpen(true);
-    setOpenMenuId(null);
+    setIsModalOpen(true); //Form per modificare una foto
+    setOpenMenuId(null); //Menu a tendina resettato a null per rimuovere l Event nello useEffect
   };
 
   // 4. Reset del form quando si chiude il modale
   const closeAndResetModal = () => {
     setIsModalOpen(false);
-    setEditingWork(null);
+    setEditingWork(null);   // se dentro editing work non compare un oggetto il programma sa che deve aggiungerne uno altrimente modifica quello che gli arriva
     setTitle('');
     setDescription('');
     setCategoryId('');
@@ -72,13 +72,13 @@ useEffect(() => {
     formData.append('title', title);
     formData.append('description', description);
     formData.append('categoryId', categoryId);
-    if (file) formData.append('file', file);
+    if (file) formData.append('file', file);  // se ci sta una foto la aggiunge altrimenti no 
 
     const url = editingWork 
       ? `http://localhost:8080/api/works/${editingWork.id}` 
       : 'http://localhost:8080/api/works';
     
-    const method = editingWork ? 'PUT' : 'POST';
+    const method = editingWork ? 'PUT' : 'POST'; // se arriva un oggetto lo modifica altrimenti lo pubblica come nuovo
 
     try {
       const response = await fetch(url, {
@@ -90,9 +90,9 @@ useEffect(() => {
       if (response.ok) {
         const result = await response.json();
         if (editingWork) {
-          setPhotos(photos.map(p => p.id === result.id ? result : p));
+          setPhotos(photos.map(p => p.id === result.id ? result : p));  // Modifica
         } else {
-          setPhotos([result, ...photos]);
+          setPhotos([result, ...photos]); // Aggiunta all inizio della griglia
         }
         closeAndResetModal();
         alert(editingWork ? "Modifica completata" : "Lavoro caricato");
@@ -138,7 +138,7 @@ useEffect(() => {
               <button key={cat.id} onClick={() => setSelectedCategory(cat.name)} className={`uppercase tracking-widest text-sm ${selectedCategory === cat.name ? 'text-[#8b3121] font-bold border-b-2 border-[#8b3121]' : 'text-gray-400'}`}>{cat.name}</button>
             ))}
           </div>
-          {/* Mobile Select (Simil Hamburger) */}
+          {/* Mobile Select */}
           <select onChange={(e) => setSelectedCategory(e.target.value)} className="md:hidden p-2 bg-[#8b3121] text-white rounded-lg uppercase text-xs tracking-tighter">
             <option value="All">Filtra per Categoria</option>
             {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
@@ -184,7 +184,7 @@ useEffect(() => {
         <div className="absolute inset-4 border border-white/10 pointer-events-none rounded-xl"></div>
         <div className="flex flex-col items-center gap-24 relative z-10">
           {filteredPhotos.map((photo) => (
-            <div key={photo.id} className="group relative w-full max-w-md">
+            <div key={photo.id} className="group relative w-full max-w-md animate-fadeIn transition-all duration-500 ease-in-out">
               {isAdmin && (
                 <div className="absolute top-4 right-4 z-30">
                   <button onClick={(e) => { e.stopPropagation(); setOpenMenuId(openMenuId === photo.id ? null : photo.id); }} className="bg-white/80 p-2 rounded-full shadow-md hover:bg-white">
