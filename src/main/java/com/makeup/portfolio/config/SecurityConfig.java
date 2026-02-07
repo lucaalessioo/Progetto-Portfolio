@@ -49,7 +49,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Obbligatorio disabilitarlo per API REST con JWT
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Niente sessioni su server
            .authorizeHttpRequests(auth -> auth
-            
+    
+    .requestMatchers(HttpMethod.POST,"/api/bookings", "/api/bookings/**").authenticated()
     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
     .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll() 
     .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()

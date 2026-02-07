@@ -52,7 +52,7 @@ public class AuthController {
         // 3. Generiamo il token per lui
         final String jwt = jwtService.generateToken(user);
 
-        return new LoginResponse(jwt, utente.getRole());
+        return new LoginResponse(jwt, utente.getRole(), utente.getEmail());
     }
 
 @PostMapping("/register")

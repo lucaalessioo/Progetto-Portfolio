@@ -9,5 +9,5 @@ import com.makeup.portfolio.model.Utente;
 public interface UtenteRepository extends JpaRepository<Utente, Long>{
     
     Optional<Utente> findByUsername(String username);
-
+    Optional<Utente> findByRole(String role);
 }
