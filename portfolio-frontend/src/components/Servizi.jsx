@@ -5,7 +5,7 @@ export default function Servizi() {
   const serviziData = [
     {
       title: "Trucco Sposa",
-      price: "Da € 250",
+      price: "Da definire",
       image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=500",
       features: [
         "Prova trucco inclusa",
@@ -16,7 +16,7 @@ export default function Servizi() {
     },
     {
       title: "Trucco Evento",
-      price: "€ 80",
+      price: "Da definire",
       image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=500",
       features: [
         "Trucco personalizzato (Giorno o Sera)",
@@ -27,7 +27,7 @@ export default function Servizi() {
     },
     {
       title: "Lezioni Self-Makeup",
-      price: "€ 120",
+      price: "Da definire",
       image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=500",
       features: [
         "Analisi della tua trousse",
