@@ -68,6 +68,8 @@ public ResponseEntity<?> register(@RequestBody LoginRequest request) {
     
     // CRIPTIAMO LA PASSWORD (usando il passwordEncoder definito nella config)
     nuovoUtente.setPassword(passwordEncoder.encode(request.getPassword()));
+
+    nuovoUtente.setEmail(request.getEmail());
     
     // ASSEGNIAMO IL RUOLO GUEST DI DEFAULT
     nuovoUtente.setRole("ROLE_GUEST");
