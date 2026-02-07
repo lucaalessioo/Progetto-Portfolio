@@ -61,8 +61,8 @@ export default function Portfolio() {
 
   // 4. Reset del form quando si chiude il modale
   const closeAndResetModal = () => {
-    setIsModalOpen(false);
-    setEditingWork(null); // se dentro editing work non compare un oggetto il programma sa che deve aggiungerne uno altrimente modifica quello che gli arriva
+    setIsModalOpen(false);// chiude il menu
+    setEditingWork(null); // rimuove l oggetto se c'era 
     setTitle("");
     setDescription("");
     setCategoryId("");
@@ -80,10 +80,10 @@ export default function Portfolio() {
     if (file) formData.append("file", file); // se ci sta una foto la aggiunge altrimenti no
 
     const url = editingWork
-      ? `http://localhost:8080/api/works/${editingWork.id}`
+      ? `http://localhost:8080/api/works/${editingWork.id}` // se trova editingWork lo modifica altrimenti lo inserisce
       : "http://localhost:8080/api/works";
 
-    const method = editingWork ? "PUT" : "POST"; // se arriva un oggetto lo modifica altrimenti lo pubblica come nuovo
+    const method = editingWork ? "PUT" : "POST"; // se arriva un oggetto chiama put altrimenti post
 
     try {
       const response = await fetch(url, {
@@ -117,7 +117,7 @@ export default function Portfolio() {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (response.ok) {
-          setPhotos(photos.filter((p) => p.id !== id));
+          setPhotos(photos.filter((p) => p.id !== id)); //Crea un nuovo array che contiene tutte le foto tranne quella che ha l'ID appena eliminato (p.id !== id).
           alert("Rimossa con successo");
         }
       } catch (error) {
@@ -175,11 +175,12 @@ export default function Portfolio() {
           </div>
 
           {/* Mobile Select */}
+          
           <select
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="md:hidden p-2 bg-[#5c2d2d] text-white rounded-lg uppercase text-xs tracking-tighter cursor-pointer"
           >
-            <option value="All">Filtra per Categoria</option>
+            <option value="All">All</option>
             {categories.map((cat) => (
               <option key={cat.id} value={cat.name}>
                 {cat.name}
@@ -283,6 +284,7 @@ export default function Portfolio() {
                     }}
                     className="bg-white/30 backdrop-blur-md p-2 rounded-full shadow-sm hover:bg-white/60 transition-all duration-300 cursor-pointer text-[#5c2d2d] border border-white/40"
                   >
+                    {/* disegno dei tre punti per il menu*/}
                     <svg
                       width="20"
                       height="20"
@@ -291,6 +293,7 @@ export default function Portfolio() {
                     >
                       <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                     </svg>
+
                   </button>
                   {openMenuId === photo.id && (
                     <div className="absolute right-0 mt-2 w-40 bg-[#f4f1ea] rounded-xl shadow-2xl py-2 z-40 border border-[#d6c7b8] animate-fadeIn">
@@ -327,6 +330,7 @@ export default function Portfolio() {
                 </div>
               )}
               <div className="relative p-1 bg-[#a64332] rounded-lg shadow-2xl">
+                {/* carica le immaggini nella griglia */}
                 <img
                   src={`http://localhost:8080${photo.imageUrl}`}
                   alt={photo.title}

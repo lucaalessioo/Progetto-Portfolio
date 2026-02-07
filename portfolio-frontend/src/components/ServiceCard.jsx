@@ -28,7 +28,7 @@ const ServiceCard = ({ title, price, features, image }) => {
         </ul>
 
         <button className="w-full py-3 border border-[#5c2d2d] text-[#5c2d2d] uppercase text-xs tracking-widest font-bold rounded-lg hover:bg-[#5c2d2d] hover:text-white transition-all duration-300">
-          Prenota Consulenza
+          Prenota Appuntamento
         </button>
       </div>
     </div>
