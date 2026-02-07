@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ServiceCard = ({ title, price, features, image }) => {
+const ServiceCard = ({ title, price, features, image, onBook }) => {
   return (
     <div className="bg-[#f4f1ea] rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2 flex flex-col h-full border border-[#d6c7b8]">
       {/* Immagine di testata del servizio */}
@@ -27,7 +27,7 @@ const ServiceCard = ({ title, price, features, image }) => {
           ))}
         </ul>
 
-        <button className="w-full py-3 border border-[#5c2d2d] text-[#5c2d2d] uppercase text-xs tracking-widest font-bold rounded-lg hover:bg-[#5c2d2d] hover:text-white transition-all duration-300">
+        <button onClick={onBook} className="w-full py-3 border border-[#5c2d2d] text-[#5c2d2d] uppercase text-xs tracking-widest font-bold rounded-lg hover:bg-[#5c2d2d] hover:text-white transition-all duration-300">
           Prenota Appuntamento
         </button>
       </div>

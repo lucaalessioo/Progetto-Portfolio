@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(utente.getUsername())
                 .password(utente.getPassword()) // Attenzione: deve essere già criptata nel DB
-                .roles(utente.getRole().replace("ROLE_", "")) // Se nel DB hai "ROLE_ADMIN", qui passiamo "ADMIN"
+                .authorities(utente.getRole())
                 .build();
     }
 }
