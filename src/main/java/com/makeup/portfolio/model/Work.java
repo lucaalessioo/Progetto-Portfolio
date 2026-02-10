@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="works")
+@Table(name = "works")
 @Data
 public class Work {
 
@@ -22,7 +22,7 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -35,10 +35,10 @@ public class Work {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category categories;
-    
+
     private LocalDateTime createdAt;
 
-    @PrePersist                              // PrePersist esegue questo metodo prima della insert cosi da salvare la data
+    @PrePersist // PrePersist esegue questo metodo prima della insert cosi da salvare la data
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }

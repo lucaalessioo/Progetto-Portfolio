@@ -28,7 +28,7 @@ export default function Navbar() {
         ></div>
       )}
 
-      <nav className="fixed top-0 w-full z-50 bg-[#f5f0e6]/90 backdrop-blur-md border-b border-[#5c2d2d]/10 px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 w-full z-50 bg-[#f5f0e6]/70 backdrop-blur-xl border-b border-[#5c2d2d]/10 px-6 py-4 flex justify-between items-center transition-all duration-300">
         {/* LOGO */}
         <Link
           to="/"

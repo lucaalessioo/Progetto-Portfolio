@@ -21,7 +21,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -45,33 +44,37 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(Customizer.withDefaults())
-            .csrf(csrf -> csrf.disable()) // Obbligatorio disabilitarlo per API REST con JWT
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Niente sessioni su server
-           .authorizeHttpRequests(auth -> auth
-    
-    .requestMatchers(HttpMethod.POST,"/api/bookings", "/api/bookings/**").authenticated()
-    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-    .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll() 
-    .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
-    .requestMatchers("/api/auth/**").permitAll()
-    .requestMatchers(HttpMethod.POST, "/api/works/**", "/api/category/**").hasAnyAuthority("ADMIN", "ROLE_ADMIN")
-    .anyRequest().authenticated()
-)
-            // DICIAMO A SPRING DI USARE IL TUO FILTRO JWT PRIMA DI QUELLO STANDARD
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable()) // Obbligatorio disabilitarlo per API REST con JWT
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Niente
+                                                                                                              // sessioni
+                                                                                                              // su
+                                                                                                              // server
+                .authorizeHttpRequests(auth -> auth
+
+                        .requestMatchers(HttpMethod.POST, "/api/bookings", "/api/bookings/**").authenticated()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/works/**", "/api/category/**")
+                        .hasAnyAuthority("ADMIN", "ROLE_ADMIN")
+                        .anyRequest().authenticated())
+                // DICIAMO A SPRING DI USARE IL FILTRO JWT PRIMA DI QUELLO STANDARD
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
     @Bean
-public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Il tuo React
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-    configuration.setAllowCredentials(true);
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-}
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Il tuo React
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

@@ -24,7 +24,7 @@ public class WorksService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    
+
     @Autowired
     private WorksRepository worksRepository;
 
@@ -39,12 +39,12 @@ public class WorksService {
     // E li metto in una lista
     public List<WorksDTO> getAllWorks() {
         return worksRepository.findAll()
-        .stream()
-        .map(worksMapper::toDto)
-        .collect(Collectors.toList());
+                .stream()
+                .map(worksMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public WorksDTO saveWork(String title, String description, Long categoryId , MultipartFile file) {
+    public WorksDTO saveWork(String title, String description, Long categoryId, MultipartFile file) {
         try {
             // Se non esiste la cartella la crea
             Path directoryPath = Paths.get(uploadDir);
@@ -57,11 +57,12 @@ public class WorksService {
             Path filePath = directoryPath.resolve(fileName);
 
             // 3. Copiamo fisicamente il file nella cartella
-            // StandardCopyOption.REPLACE_EXISTING serve a sovrascrivere se il file esiste già
+            // StandardCopyOption.REPLACE_EXISTING serve a sovrascrivere se il file esiste
+            // già
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Categoria non trovata"));
+                    .orElseThrow(() -> new RuntimeException("Categoria non trovata"));
 
             // 4. Creiamo l'entità da salvare nel DB
             Work work = new Work();
@@ -82,36 +83,37 @@ public class WorksService {
 
     // Metodo UPDATE
     public WorksDTO updateWork(Long id, String title, String description, Long categoryId, MultipartFile file) {
-    Work work = worksRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Lavoro non trovato"));
+        Work work = worksRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Lavoro non trovato"));
 
-    work.setTitle(title);
-    work.setDescription(description);
+        work.setTitle(title);
+        work.setDescription(description);
 
-    Category category = categoryRepository.findById(categoryId)
-            .orElseThrow(() -> new RuntimeException("Categoria non trovata"));
-    work.setCategories(category);
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Categoria non trovata"));
+        work.setCategories(category);
 
-    // Se l'utente ha caricato una nuova foto, la sostituiamo
-    if (file != null && !file.isEmpty()) {
-        try {
-            String fileName = file.getOriginalFilename();
-            Path filePath = Paths.get(uploadDir).resolve(fileName);
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            work.setImageUrl("/uploads/" + fileName);
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel salvataggio della nuova immagine");
+        // Se l'utente ha caricato una nuova foto, la sostituiamo
+        if (file != null && !file.isEmpty()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir).resolve(fileName);
+                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                work.setImageUrl("/uploads/" + fileName);
+            } catch (IOException e) {
+                throw new RuntimeException("Errore nel salvataggio della nuova immagine");
+            }
         }
+
+        Work updatedWork = worksRepository.save(work);
+        return worksMapper.toDto(updatedWork);
     }
 
-    Work updatedWork = worksRepository.save(work);
-    return worksMapper.toDto(updatedWork);
-}
-
     public void deleteWork(Long id) {
-    worksRepository.deleteById(id);
-    // Nota: per ora cancelliamo solo il record sul DB. 
-    // Per pulire anche il file fisico servirebbe Files.delete(), ma partiamo dal DB.
-}
+        worksRepository.deleteById(id);
+        // Nota: per ora cancelliamo solo il record sul DB.
+        // Per pulire anche il file fisico servirebbe Files.delete(), ma partiamo dal
+        // DB.
+    }
 
 }

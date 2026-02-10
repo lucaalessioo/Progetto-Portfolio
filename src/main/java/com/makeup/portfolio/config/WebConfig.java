@@ -19,7 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Lasciamo tutto invariato come lo avevi tu
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:///C:/Users/lucaa/Documents/GitHub/Progetto-Portfolio/uploads/")
                 .setCachePeriod(0);

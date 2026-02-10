@@ -61,8 +61,8 @@ export default function Portfolio() {
 
   // 4. Reset del form quando si chiude il modale
   const closeAndResetModal = () => {
-    setIsModalOpen(false);// chiude il menu
-    setEditingWork(null); // rimuove l oggetto se c'era 
+    setIsModalOpen(false); // chiude il menu
+    setEditingWork(null); // rimuove l oggetto se c'era
     setTitle("");
     setDescription("");
     setCategoryId("");
@@ -175,7 +175,7 @@ export default function Portfolio() {
           </div>
 
           {/* Mobile Select */}
-          
+
           <select
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="md:hidden p-2 bg-[#5c2d2d] text-white rounded-lg uppercase text-xs tracking-tighter cursor-pointer"
@@ -212,10 +212,10 @@ export default function Portfolio() {
               <input
                 value={title}
                 type="text"
-                placeholder="Titolo"
+                placeholder="Titolo (opzionale)"
                 className="p-3 border rounded-lg focus:outline-[#8b3121]"
                 onChange={(e) => setTitle(e.target.value)}
-                required
+                
               />
               <textarea
                 value={description}
@@ -293,7 +293,6 @@ export default function Portfolio() {
                     >
                       <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                     </svg>
-
                   </button>
                   {openMenuId === photo.id && (
                     <div className="absolute right-0 mt-2 w-40 bg-[#f4f1ea] rounded-xl shadow-2xl py-2 z-40 border border-[#d6c7b8] animate-fadeIn">
@@ -338,9 +337,11 @@ export default function Portfolio() {
                 />
               </div>
               <div className="mt-4 text-center">
+                {photo.title && (
                 <p className="text-[#f4f1ea] font-serif italic text-xl uppercase tracking-widest">
                   {photo.title}
                 </p>
+                )}
                 <span className="text-white/40 text-[10px] uppercase tracking-[3px]">
                   {photo.categories?.name}
                 </span>

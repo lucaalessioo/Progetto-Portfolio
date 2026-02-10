@@ -13,20 +13,19 @@ import com.makeup.portfolio.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
-    
+
     @Autowired
     private CategoryRepository categoryRepository;
-    
+
     @Autowired
     private CategoryMapper categoryMapper;
-    
 
-public List<CategoryDTO> getAllCategories() {
-    return categoryRepository.findAll()
-            .stream()
-            .map(categoryMapper::toDto)
-            .collect(Collectors.toList());
-}
+    public List<CategoryDTO> getAllCategories() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(categoryMapper::toDto)
+                .collect(Collectors.toList());
+    }
 
     public Category saveCategory(Category category) {
         return categoryRepository.save(category);
