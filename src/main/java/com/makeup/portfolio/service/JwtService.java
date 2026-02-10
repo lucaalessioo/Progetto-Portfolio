@@ -34,18 +34,19 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails user) {
-        // Trasformiamo le Authorities in una lista di stringhe semplici (es. ["ROLE_ADMIN"])
+        // Trasformiamo le Authorities in una lista di stringhe semplici (es.
+        // ["ROLE_ADMIN"])
         List<String> roles = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return Jwts.builder()
-            .setSubject(user.getUsername())
-            .claim("roles", roles) // Passiamo stringhe, non oggetti
-            .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + expiration))
-            .signWith(signingKey, SignatureAlgorithm.HS256)
-            .compact();
+                .setSubject(user.getUsername())
+                .claim("roles", roles) // Passiamo stringhe, non oggetti
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(signingKey, SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public String extractUsername(String token) {
@@ -59,10 +60,10 @@ public class JwtService {
 
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
-            .setSigningKey(signingKey)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private boolean isExpired(String token) {

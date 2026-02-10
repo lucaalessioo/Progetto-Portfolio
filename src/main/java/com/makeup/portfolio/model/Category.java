@@ -33,5 +33,5 @@ public class Category {
     @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Work> works;
-    
+
 }

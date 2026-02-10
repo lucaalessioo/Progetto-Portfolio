@@ -13,7 +13,6 @@ import lombok.Data;
 @Data
 public class Utente {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +21,10 @@ public class Utente {
     private String username;
 
     @Column(nullable = false)
-    private String password; 
+    private String password;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String role; //  "ROLE_ADMIN"
+    private String role; // "ROLE_ADMIN"
 }

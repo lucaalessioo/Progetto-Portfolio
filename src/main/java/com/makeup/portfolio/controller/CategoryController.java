@@ -2,7 +2,6 @@ package com.makeup.portfolio.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,20 +19,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/category")
 @CrossOrigin(origins = "http://localhost:5173")
 public class CategoryController {
-    
+
     @Autowired
     private CategoryService categoryService;
 
-  @GetMapping
-public List<CategoryDTO> getAllCategories() {
-    return categoryService.getAllCategories();
-}
+    @GetMapping
+    public List<CategoryDTO> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
 
-    
     @PostMapping
     public Category createCategory(@RequestBody Category category) {
-        
+
         return categoryService.saveCategory(category);
     }
-    
+
 }

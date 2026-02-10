@@ -21,13 +21,12 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<?> createBooking(@RequestBody BookingRequest request) {
-        // Qui invochiamo il servizio email
+        // servizio email
         bookingService.sendBookingEmail(
-            request.getCustomerName(),
-            request.getCustomerEmail(),
-            request.getServiceTitle(),
-            request.getDate()
-        );
+                request.getCustomerName(),
+                request.getCustomerEmail(),
+                request.getServiceTitle(),
+                request.getDate());
         return ResponseEntity.ok().body("Prenotazione inviata!");
     }
 }
