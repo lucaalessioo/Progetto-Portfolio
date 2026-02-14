@@ -58,7 +58,7 @@ export default function Servizi() {
       title: "Trucco Sposa",
       price: "Da definire",
       image:
-        "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=500",
+        "http://localhost:8080/uploads/foto-copertina-card-sposa.jpeg",
       features: [
         "Prova trucco inclusa",
         "Studio della pelle e consulenza",
@@ -70,7 +70,7 @@ export default function Servizi() {
       title: "Trucco Evento",
       price: "Da definire",
       image:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=500",
+        "http://localhost:8080/uploads/foto-copertina-card-evento.jpeg",
       features: [
         "Trucco personalizzato (Giorno o Sera)",
         "Contouring professionale",
@@ -79,10 +79,10 @@ export default function Servizi() {
       ],
     },
     {
-      title: "Lezioni Self-Makeup",
+      title: "Trucco per i tuoi 18",
       price: "Da definire",
       image:
-        "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=500",
+        "http://localhost:8080/uploads/foto-copertina-card-18.jpeg",
       features: [
         "Analisi della tua trousse",
         "Tecniche base e avanzate",
@@ -111,6 +111,16 @@ export default function Servizi() {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {serviziData.map((servizio, index) => (
+
+       <div 
+      key={index} 
+      className="animate-fade-in" 
+      style={{ 
+        animationDelay: `${index * 400}ms`, 
+        animationFillMode: 'backwards' // Mantiene la card invisibile finché non tocca a lei
+      }}
+    >
+
           <ServiceCard
             key={index}
             title={servizio.title}
@@ -127,6 +137,7 @@ export default function Servizi() {
               openBookingModal(servizio);
             }}
           />
+          </div>
         ))}
       </div>
 

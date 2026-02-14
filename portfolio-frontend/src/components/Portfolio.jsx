@@ -273,7 +273,7 @@ export default function Portfolio() {
           {filteredPhotos.map((photo) => (
             <div
               key={photo.id}
-              className="group relative w-full max-w-md animate-fadeIn transition-all duration-500 ease-in-out"
+              className="group relative w-full max-w-md animate-fade-in transition-all duration-500 ease-in-out"
             >
               {isAdmin && (
                 <div className="absolute top-4 right-4 z-30">
@@ -294,6 +294,7 @@ export default function Portfolio() {
                       <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                     </svg>
                   </button>
+                  
                   {openMenuId === photo.id && (
                     <div className="absolute right-0 mt-2 w-40 bg-[#f4f1ea] rounded-xl shadow-2xl py-2 z-40 border border-[#d6c7b8] animate-fadeIn">
                       {/* Bottone Modifica */}
@@ -328,14 +329,33 @@ export default function Portfolio() {
                   )}
                 </div>
               )}
-              <div className="relative p-1 bg-[#a64332] rounded-lg shadow-2xl">
-                {/* carica le immaggini nella griglia */}
+
+<div className="relative aspect-square overflow-hidden rounded-md bg-[#4a2424] flex items-center justify-center group">
+  
+  {/* LIVELLO 1: Sfondo neutro con una leggera sfumatura radiale per profondità */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle,_#5c2d2d_0%,_#3d1e1e_100%)] opacity-40"></div>
+
+  {/* LIVELLO 2: L'immagine principale con un'ombra molto morbida */}
+  <img
+    src={`http://localhost:8080${photo.imageUrl}`}
+    alt={photo.title}
+    className="relative z-10 max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105 shadow-2xl"
+    style={{ filter: "drop-shadow(0px 0px 15px rgba(0,0,0,0.5))" }}
+  />
+
+  {/* LIVELLO 3: Effetto "sfocatura bordi" (Vignettatura interna) */}
+  {/* Questo crea un gradiente che scurisce i bordi del quadrato verso l'interno */}
+  <div className="absolute inset-0 z-20 pointer-events-none shadow-[inset_0_0_60px_rgba(0,0,0,0.6)]"></div>
+</div>
+
+              {/* carica le immaggini nella griglia  */}
+              {/* <div className="relative p-1 bg-[#a64332] rounded-lg shadow-2xl">
                 <img
                   src={`http://localhost:8080${photo.imageUrl}`}
                   alt={photo.title}
                   className="w-full aspect-square object-cover rounded-md transition-transform duration-700 group-hover:scale-[1.02]"
                 />
-              </div>
+              </div> */}
               <div className="mt-4 text-center">
                 {photo.title && (
                 <p className="text-[#f4f1ea] font-serif italic text-xl uppercase tracking-widest">
