@@ -7,21 +7,38 @@ export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   // gestione menu foto e form per aggiornare o aggiungere una nuova foto
+<<<<<<< HEAD
+  const [openMenuId, setOpenMenuId] = useState(null); // Ricorda l'ID della foto su cui si apre il menu dei tre puntini. Se è null, nessun menu è aperto.
+  const [isModalOpen, setIsModalOpen] = useState(false); //Un interruttore (Vero/Falso) per mostrare o nascondere i tasti per aggiungere/modificare foto. (solo admin)
+  const [editingWork, setEditingWork] = useState(null); // null per nuovo, se non è null serve per modificarlo
+
+  // Stati del form per l aggiunta delle foto (solo admin)
+=======
   const [openMenuId, setOpenMenuId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingWork, setEditingWork] = useState(null); // null per nuovo, oggetto per modifica
 
   // Stati del form
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [file, setFile] = useState(null);
 
+<<<<<<< HEAD
+  // Controllo permessi
+  const userRole = localStorage.getItem("role");
+  const token = localStorage.getItem("token");
+  const isAdmin = token && (userRole === "ADMIN" || userRole === "ROLE_ADMIN"); 
+
+  // Caricamento dati iniziali
+=======
   const userRole = localStorage.getItem("role");
   const token = localStorage.getItem("token");
   const isAdmin = token && (userRole === "ADMIN" || userRole === "ROLE_ADMIN");
 
   // 1. Caricamento dati iniziali
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   useEffect(() => {
     // Caricamento Lavori
     fetch("http://localhost:8080/api/works")
@@ -32,6 +49,10 @@ export default function Portfolio() {
       .then((data) => setPhotos(data))
       .catch((error) => console.error("Errore lavori:", error));
 
+<<<<<<< HEAD
+    // Caricamente categorie
+=======
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
     fetch("http://localhost:8080/api/category")
       .then((response) => {
         if (!response.ok)
@@ -42,6 +63,26 @@ export default function Portfolio() {
       .catch((error) => console.error("Errore categorie:", error));
   }, []);
 
+<<<<<<< HEAD
+  // Chiusura automatica menu tre puntini
+  useEffect(() => {
+    const closeMenu = () => setOpenMenuId(null);
+    if (openMenuId !== null) window.addEventListener("click", closeMenu); // Se il menu è aperto, resta in ascolto di click ovunque
+    return () => window.removeEventListener("click", closeMenu); // Tolgo l ascolto del click. (performance)
+  }, [openMenuId]);
+
+  // Funzione per aprire il modale in modalità "Modifica"
+  const openEditModal = (photo) => {
+    setEditingWork(photo); // Prende i dati della foto cliccata e li travasa nel form 
+    setTitle(photo.title);
+    setDescription(photo.description);
+    setCategoryId(photo.categories?.id || "");
+    setIsModalOpen(true); //  Mostra i tasti per aggiungere o modificare le foto
+    setOpenMenuId(null); //Menu a tendina resettato a null per rimuovere l Event nello useEffect
+  };
+
+  // Reset del form quando si chiude il modale
+=======
   // 2. Chiusura automatica menu tre puntini
   useEffect(() => {
     const closeMenu = () => setOpenMenuId(null);
@@ -60,6 +101,7 @@ export default function Portfolio() {
   };
 
   // 4. Reset del form quando si chiude il modale
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   const closeAndResetModal = () => {
     setIsModalOpen(false); // chiude il menu
     setEditingWork(null); // rimuove l oggetto se c'era
@@ -69,7 +111,11 @@ export default function Portfolio() {
     setFile(null);
   };
 
+<<<<<<< HEAD
+  // Gestione Inserimento o Modifica (POST o PUT)
+=======
   // 5. Gestione Inserimento o Modifica (POST o PUT)
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -80,8 +126,13 @@ export default function Portfolio() {
     if (file) formData.append("file", file); // se ci sta una foto la aggiunge altrimenti no
 
     const url = editingWork
+<<<<<<< HEAD
+      ? `http://localhost:8080/api/works/${editingWork.id}` // se trova editingWork lo modifica prendendo l id della foto  
+      : "http://localhost:8080/api/works"; // altrimenti prende l url per l inserimento
+=======
       ? `http://localhost:8080/api/works/${editingWork.id}` // se trova editingWork lo modifica altrimenti lo inserisce
       : "http://localhost:8080/api/works";
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 
     const method = editingWork ? "PUT" : "POST"; // se arriva un oggetto chiama put altrimenti post
 
@@ -107,7 +158,11 @@ export default function Portfolio() {
     }
   };
 
+<<<<<<< HEAD
+  // Eliminazione
+=======
   // 6. Eliminazione
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   const handleDelete = async (id) => {
     if (window.confirm("Vuoi davvero eliminare questa immagine?")) {
       const token = localStorage.getItem("token");
@@ -243,7 +298,11 @@ export default function Portfolio() {
                 type="file"
                 className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-[#8b3121] file:text-white"
                 onChange={(e) => setFile(e.target.files[0])}
+<<<<<<< HEAD
+                required={!editingWork}  // Richiesto solo se manca il file
+=======
                 required={!editingWork}
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
               />
 
               <div className="flex gap-3 mt-4">

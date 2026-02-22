@@ -9,11 +9,82 @@ export default function Servizi() {
   const [bookingDate, setBookingDate] = useState("");
   const navigate = useNavigate();
 
+<<<<<<< HEAD
+  // apre la modale di quel tipo di servizio scelto
+=======
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   const openBookingModal = (servizio) => {
     setSelectedService(servizio);
     setIsBookingModalOpen(true);
   };
 
+<<<<<<< HEAD
+  // const handleConfirmBooking = async () => {
+  //   if (!bookingDate) {
+  //     alert("Per favore, seleziona una data.");
+  //     return;
+  //   }
+
+  //   const token = localStorage.getItem("token");
+  //   const username = localStorage.getItem("username");
+  //   const emailUtente = localStorage.getItem("email"); // Salvata durante il login
+
+  //   const bookingRequest = {
+  //     customerName: username,
+  //     customerEmail: emailUtente,
+  //     serviceTitle: selectedService.title,
+  //     date: bookingDate,
+  //   };
+
+  //   try {
+  //     const response = await fetch("http://localhost:8080/api/bookings", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`, // L'utente deve essere loggato
+  //       },
+  //       body: JSON.stringify(bookingRequest),
+  //     });
+
+  //     if (response.ok) {
+  //       alert("Richiesta inviata!");
+  //       setIsBookingModalOpen(false);
+  //       setBookingDate("");
+  //     } else {
+  //       alert("Errore durante l'invio. Assicurati di essere loggato.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Errore tecnico:", error);
+  //   }
+  // };
+  const handleConfirmBooking = async () => {
+  const token = localStorage.getItem("token");
+
+  // Non inviamo più l'email manualmente, il server la prenderà dal Token!
+  const bookingRequest = {
+    serviceTitle: selectedService.title,
+    date: bookingDate,
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/api/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(bookingRequest),
+    });
+
+    if (response.ok) {
+      alert("Richiesta inviata! Federica ti risponderà presto.");
+      setIsBookingModalOpen(false);
+    }
+  } catch (error) {
+    alert("Errore nell'invio della prenotazione.");
+  }
+};
+=======
   const handleConfirmBooking = async () => {
     if (!bookingDate) {
       alert("Per favore, seleziona una data.");
@@ -52,6 +123,7 @@ export default function Servizi() {
       console.error("Errore tecnico:", error);
     }
   };
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 
   const serviziData = [
     {

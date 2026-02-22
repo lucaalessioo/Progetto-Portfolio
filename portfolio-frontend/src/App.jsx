@@ -20,7 +20,25 @@ function App() {
           <Route path="/servizi" element={<Servizi />} />
         </Routes>
       </div>
+<<<<<<< HEAD
+      <footer className="py-6 text-center border-t border-gray-100">
+        <p className="text-[10px] text-gray-400 uppercase tracking-widest">
+          © 2026 Federica Sofia Petrillo — 
+          <a 
+            href="https://www.iubenda.com/privacy-policy/IL_TUO_ID" 
+            target="_blank" 
+            rel="noreferrer"
+            className="hover:text-[#5c2d2d] ml-2"
+          >
+            Privacy Policy
+          </a>
+        </p>
+      </footer>
     </Router>
+    
+=======
+    </Router>
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   );
 }
 

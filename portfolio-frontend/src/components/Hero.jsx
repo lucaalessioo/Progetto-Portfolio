@@ -2,8 +2,13 @@ import React, {useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 
 export default function Hero() {
+<<<<<<< HEAD
+                                  // useState farebbe un re-render ogni volta 
+  const videoRef = useRef(null);  // uso useRef per puntare al video cosi react non renderizza la pagina ad ogni interazione con il video.
+=======
 
   const videoRef = useRef(null);
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 
   useEffect(() => {
     if (videoRef.current) {
@@ -17,7 +22,11 @@ export default function Hero() {
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#5c2d2d]">
       {/* VIDEO DI SFONDO */}
       <video
+<<<<<<< HEAD
+        ref={videoRef}    
+=======
         ref={videoRef}    // prova
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
         autoPlay
         loop
         muted
@@ -32,7 +41,11 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/40 z-20"></div>
 
       {/* CONTENUTO TESTUALE */}
+<<<<<<< HEAD
+      <div className="relative z-30 text-center px-4 animate-fade-in">
+=======
       <div className="relative z-30 text-center px-4 animate-fadeIn">
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
         {/* NOME IN CORSIVO - Colore Crema */}
         <p className="text-2xl md:text-3xl font-serif italic text-[#f4f1ea] mb-2 drop-shadow-lg">
           Federica Sofia Petrillo
@@ -64,7 +77,11 @@ export default function Hero() {
 
           <Link
             to="/portfolio"
+<<<<<<< HEAD
+            className="bg-white/10 backdrop-blur-md border-1 border-white/90 text-white px-10 py-4 rounded-full hover:bg-white hover:text-gray-900 transition-all shadow-xl uppercase text-[10px] tracking-[0.2em] font-bold w-64 md:w-auto"
+=======
             className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-full hover:bg-white hover:text-gray-900 transition-all shadow-xl uppercase text-[10px] tracking-[0.2em] font-bold w-64 md:w-auto"
+>>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
           >
             Vai al Portfolio
           </Link>
