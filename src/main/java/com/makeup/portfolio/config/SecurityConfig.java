@@ -41,7 +41,6 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-<<<<<<< HEAD
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
@@ -71,32 +70,6 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 
     return http.build();
 }
-=======
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable()) // Obbligatorio disabilitarlo per API REST con JWT
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Niente
-                                                                                                              // sessioni
-                                                                                                              // su
-                                                                                                              // server
-                .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers(HttpMethod.POST, "/api/bookings", "/api/bookings/**").authenticated()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/works/**", "/api/category/**", "/uploads/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/works/**", "/api/category/**")
-                        .hasAnyAuthority("ADMIN", "ROLE_ADMIN")
-                        .anyRequest().authenticated())
-                // DICIAMO A SPRING DI USARE IL FILTRO JWT PRIMA DI QUELLO STANDARD
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

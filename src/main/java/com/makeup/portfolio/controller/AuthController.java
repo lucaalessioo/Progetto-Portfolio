@@ -6,11 +6,8 @@ import com.makeup.portfolio.model.Utente;
 import com.makeup.portfolio.repository.UtenteRepository;
 import com.makeup.portfolio.service.JwtService;
 
-<<<<<<< HEAD
 import java.security.Principal;
 
-=======
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,11 +59,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody LoginRequest request) {
-<<<<<<< HEAD
         // Verifichiamo se lo username esiste già per evitare errori SQL
-=======
-        // Verifichiamo se lo username esiste già per evitare errori SQL 
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
         if (utenteRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Errore: Username già in uso!");
         }
@@ -87,7 +80,6 @@ public class AuthController {
 
         return ResponseEntity.ok("Registrazione avvenuta con successo! Ora puoi accedere.");
     }
-<<<<<<< HEAD
 
     @PutMapping("/update-profile")
     public ResponseEntity<?> updateProfile(@RequestBody LoginRequest request, Principal principal) {
@@ -111,6 +103,4 @@ public class AuthController {
         utenteRepository.save(utente);
         return ResponseEntity.ok("Profilo aggiornato con successo!");
     }
-=======
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 }

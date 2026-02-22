@@ -36,7 +36,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-<<<<<<< HEAD
             // Modifica JwtAuthFilter.java
             // Invece di bloccare tutto /api/auth, blocchiamo solo login e register
             if (request.getServletPath().equals("/api/auth/login") || 
@@ -44,14 +43,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-=======
-        // AGGIUNTA: Se la richiesta è per l'autenticazione, passa oltre immediatamente
-        // Questo evita che il filtro faccia calcoli inutili durante il login
-        if (request.getServletPath().contains("/api/auth")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;

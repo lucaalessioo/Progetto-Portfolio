@@ -31,11 +31,7 @@ public class BookingService {
                 "Cliente: " + customerName + "\n" +
                 "Data: " + date + "\n" +
                 "Email Cliente: " + customerEmail + "\n" +
-<<<<<<< HEAD
                 "Contatta il cliente per confermare.");
-=======
-                "Contatta la cliente per confermare.");
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
 
         emailSender.send(message);
     }

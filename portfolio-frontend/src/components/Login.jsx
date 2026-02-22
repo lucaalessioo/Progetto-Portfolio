@@ -7,7 +7,6 @@ export default function Login() {
 
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
-<<<<<<< HEAD
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,12 +14,6 @@ export default function Login() {
   // Stato per la privacy
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
-=======
-  const [email, setEmail] = useState(""); // Stato dell'email che avevi aggiunto
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
   useEffect(() => {
     if (location.state?.mode === "register") {
       setIsLogin(false);
@@ -32,14 +25,11 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-<<<<<<< HEAD
     if (!isLogin && !privacyAccepted) {
     alert("Devi accettare la Privacy Policy per continuare.");
     return;
   }
 
-=======
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
     if (!isLogin && password !== confirmPassword) {
       alert("Le password non coincidono");
       return;
@@ -126,7 +116,6 @@ export default function Login() {
         />
 
         {!isLogin && (
-<<<<<<< HEAD
         
           <input
           type="password"
@@ -155,17 +144,6 @@ export default function Login() {
           
           
 
-=======
-          <input
-            type="password"
-            placeholder="Conferma Password"
-            className="w-full mb-6 p-3 border rounded focus:outline-[#5c2d2d] animate-fadeIn"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        )}
-
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
         <button className="w-full bg-[#5c2d2d] text-white py-3 rounded-full hover:bg-[#a64332] transition font-bold uppercase tracking-widest text-xs">
           {isLogin ? "Entra" : "Crea Account"}
         </button>
@@ -173,16 +151,12 @@ export default function Login() {
         <div className="mt-6 text-center">
           <button
             type="button"
-<<<<<<< HEAD
             onClick={() => {setIsLogin(!isLogin);
               setPassword("");
               setConfirmPassword("");
               setPrivacyAccepted(false);
             }}
 
-=======
-            onClick={() => setIsLogin(!isLogin)}
->>>>>>> f0aa7f454de28a2a1c123a77bcfe6316e6033d7b
             className="text-xs text-gray-600 hover:text-[#5c2d2d] underline tracking-wider cursor-pointer transition-colors duration-200"
           >
             {isLogin
