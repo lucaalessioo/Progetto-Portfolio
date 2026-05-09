@@ -1,34 +1,49 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+name: Java CI with Maven
 
-name: Maven Package
-
+# 1. TRIGGER: Eseguiamo i controlli su ogni Push e ogni Pull Request sul main
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
-    - uses: actions/checkout@v4
+    # 2. CHECKOUT: Scarica il codice nel server di GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 3. SETUP JAVA: Configura il JDK (Java 21 come nel tuo caso)
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
+        # La cache velocizza le build successive ricordando le dipendenze scaricate
+        cache: maven
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    # 4. BUILD & TEST: Il cuore della CI
+    # -B: Batch mode (output pulito)
+    # verify: Esegue i test e controlla che tutto sia a posto
+    - name: Build and Test with Maven
+      run: mvn -B verify
 
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+    # 5. ARTIFACT: Se la build passa, salva il file .jar così puoi scaricarlo
+    - name: Upload Build Artifact
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: spring-boot-app
+        path: target/*.jar
+        retention-days: 5 # Elimina i file vecchi dopo 5 giorni per non sprecare spazio
+
+    # 6. REPORT: Se i test falliscono, carica i report per capire cosa è successo
+    - name: Upload Test Reports
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-reports
+        path: target/surefire-reports/
