@@ -25,8 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Utente utente = utenteRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Utente non trovato con username: " + username));
 
-        // Trasformiamo il tuo modello "Utente" nel modello "UserDetails" che Spring
-        // capisce
+        // Trasformo il modello "Utente" nel modello "UserDetails" che Spring capisce
         return User.builder()
                 .username(utente.getUsername())
                 .password(utente.getPassword()) // Attenzione: deve essere già criptata nel DB

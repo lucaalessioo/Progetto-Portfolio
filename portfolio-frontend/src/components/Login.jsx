@@ -40,7 +40,7 @@ export default function Login() {
     // 1. Prepariamo l'oggetto da inviare. Se è registrazione, aggiungiamo l'email.
     const bodyPayload = isLogin
       ? { username, password }
-      : { username, password, email }; // Qui includiamo l'email
+      : { username, password, email };
 
     try {
       const response = await fetch(

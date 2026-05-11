@@ -18,7 +18,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "categories")
 @Data
-@ToString(exclude = "works") // Evita che anche il metodo toString() vada in loop
+@ToString(exclude = "works") // esclude il nome del campo da togliere dal tostring per evitare loop infiniti
 public class Category {
 
     @Id

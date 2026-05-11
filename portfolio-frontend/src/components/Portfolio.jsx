@@ -48,10 +48,10 @@ export default function Portfolio() {
   useEffect(() => {
     const closeMenu = () => setOpenMenuId(null);
     if (openMenuId !== null) window.addEventListener("click", closeMenu); // Se il menu è aperto, resta in ascolto di click ovunque
-    return () => window.removeEventListener("click", closeMenu); // Tolgo l ascolto del click. (performance)
+    return () => window.removeEventListener("click", closeMenu); // Tolgo l ascolto del click.(performance) altrimenti ogni volta che si apre il menu si aggiunge un evento
   }, [openMenuId]);
 
-  // Funzione per aprire il modale in modalità "Modifica"
+  // Funzione per aprire il modale in modalità "Modifica" della foto selezionata
   const openEditModal = (photo) => {
     setEditingWork(photo); // Prende i dati della foto cliccata e li travasa nel form 
     setTitle(photo.title);

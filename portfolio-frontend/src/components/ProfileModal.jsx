@@ -6,13 +6,13 @@ export default function ProfileModal({ isOpen, onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // 2. Usiamo useEffect correttamente al livello principale
-  // Questo sincronizza i campi ogni volta che la modale viene aperta
+ 
+  // Sincronizza i campi ogni volta che la modale viene aperta
   useEffect(() => {
     if (isOpen) {
       setUsername(localStorage.getItem("username") || "");
       setEmail(localStorage.getItem("email") || "");
-      setPassword(""); // Resettiamo sempre la password per sicurezza
+      setPassword(""); // Resetto sempre la password per sicurezza
     }
   }, [isOpen]); 
 
@@ -37,7 +37,7 @@ export default function ProfileModal({ isOpen, onClose }) {
 
       if (response.ok) {
         alert("Profilo aggiornato! Effettua di nuovo il login.");
-        localStorage.clear(); 
+        localStorage.clear(); // in deploy removeItems('token') 
         window.location.reload(); 
       } else {
         alert("Errore durante l'aggiornamento");

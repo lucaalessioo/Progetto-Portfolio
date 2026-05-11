@@ -16,7 +16,7 @@ public class WorksMapper {
         dto.setDescription(work.getDescription());
         dto.setImageUrl(work.getImageUrl());
 
-        // FONDAMENTALE: Se la categoria esiste, trasformala in DTO
+        // Se la categoria esiste, la trasformo in DTO
         if (work.getCategories() != null) {
             CategoryDTO catDto = new CategoryDTO();
             catDto.setId(work.getCategories().getId());

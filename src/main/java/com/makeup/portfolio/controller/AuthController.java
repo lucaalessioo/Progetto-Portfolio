@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173") // Per permettere a React di chiamare questo endpoint
+@CrossOrigin(origins = "http://localhost:5173") // Per permettere a React di chiamare questo endpoint visto che front end e back girano su porte differenti
 public class AuthController {
 
     private final PasswordEncoder passwordEncoder;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProfileModal from "./ProfileModal";
 
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function Navbar() {
           
           {/* 1. LOGO */}
           <Link to="/" onClick={closeMenu} className="text-lg font-serif italic text-[#5c2d2d] font-bold">
-            Portfolio
+            <img src="logo.png" alt="logo" className="h-12 w-auto  md:h-12 transition-trasform hover:scale-105" />
           </Link>
 
           {/* 2. MENU DESKTOP */}
@@ -52,7 +53,7 @@ export default function Navbar() {
                     Register
                   </Link>
                 </>
-              ) : (
+              ) : (                                          //-------- Inizio sezione modifica profilo ----------
                 <div className="flex items-center gap-4">
                   <div className="hidden min-[1100px]:flex flex-col items-end leading-tight border-r border-[#5c2d2d]/10 pr-4">
                     <span className="text-[9px] uppercase tracking-[0.2em] text-gray-400 font-bold">Account attivo</span>

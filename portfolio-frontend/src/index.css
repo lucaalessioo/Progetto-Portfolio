@@ -12,6 +12,6 @@
     }
   }
 
-  /* 1.2s per un effetto molto calmo e professionale */
+  /* 1.2s per un effetto molto calmo */
   --animate-fade-in: fadeIn 1.2s ease-out forwards;
 }
