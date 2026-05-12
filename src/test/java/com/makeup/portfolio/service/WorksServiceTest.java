@@ -78,6 +78,7 @@ public class WorksServiceTest {
     }
 
     @Test
+    @DisplayName("Salvataggio lavoro con successo")
     void testSaveWork() throws IOException {
 
         //GIVEN
@@ -100,6 +101,7 @@ public class WorksServiceTest {
     }
 
     @Test
+    @DisplayName("Deve lanciare eccezione se il file non è un'immagine")
     void saveWork_InvalidFileType_ThrowsException() {
         //GIVEN
         MockMultipartFile file = new MockMultipartFile(
@@ -112,6 +114,24 @@ public class WorksServiceTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () ->  worksService.saveWork("Titolo", "Descrizione",1L, file));
 
         assertEquals("Il file deve essere un'immagine (jpg, png, ecc.)", exception.getMessage());
+        verify(workRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("Deve lanciare eccezione se il file non è un'immagine")
+    void saveWork_CategoryNotFound_ThrowsException() {
+        //GIVEN
+       MockMultipartFile file = new MockMultipartFile(
+            "file", "test.jpg", "image/jpeg", "foto".getBytes()
+        );
+
+        when(categoryRepository.findById(99L)).thenReturn(Optional.empty());
+
+        //WHEN THEN
+        assertThrows(RuntimeException.class, () -> {
+            worksService.saveWork("Titolo", "Descrizione", 99L, file);
+    });
+
         verify(workRepository, never()).save(any());
     }
 
