@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -66,7 +66,16 @@ public class WorksServiceTest {
     }
 
     @Test
+    @DisplayName("Eliminazione lavoro esistente")
     void testDeleteWork() {
+
+        when(workRepository.findById(1L)).thenReturn(Optional.of((work)));
+
+        //WHEN
+        worksService.deleteWork(1L);
+
+        //THEN
+        verify(workRepository, times(1)).delete(work);
 
     }
 
