@@ -2,7 +2,9 @@ package com.makeup.portfolio.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -95,6 +97,22 @@ public class WorksServiceTest {
         verify(workRepository, times(1)).save(any(Work.class));
         verify(categoryRepository, times(1)).findById(1L);
 
+    }
+
+    @Test
+    void saveWork_InvalidFileType_ThrowsException() {
+        //GIVEN
+        MockMultipartFile file = new MockMultipartFile(
+        "file", 
+        "test.pdf", 
+        "application/pdf", // <-- Questo farà fallire validateImage
+        "contenuto finto".getBytes()
+    );
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->  worksService.saveWork("Titolo", "Descrizione",1L, file));
+
+        assertEquals("Il file deve essere un'immagine (jpg, png, ecc.)", exception.getMessage());
+        verify(workRepository, never()).save(any());
     }
 
     @Test
