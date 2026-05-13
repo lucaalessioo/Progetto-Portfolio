@@ -116,22 +116,37 @@ public class CategoryServiceTest {
 
 
 
-    @Test
-    @DisplayName("Salva una categoria")
-    void testSaveCategory() {
+        @Test
+        @DisplayName("Dovrebbe convertire, salvare e restituire un DTO")
+        void saveCategory_ShouldProcessCorrectly() {
+            // GIVEN
+            CategoryDTO inputDto = new CategoryDTO();
+            inputDto.setName("Wedding");
 
-        // GIVEN
-        Category cat = new Category();
-        cat.setName("Trucco Sposa");
-        when(categoryRepository.save(cat)).thenReturn(cat);
+            Category entity = new Category();
+            entity.setName("Wedding");
 
-        // WHEN
-        Category saved = categoryService.saveCategory(cat);
+            Category savedEntity = new Category();
+            savedEntity.setId(10L); // Il DB assegna l'ID
+            savedEntity.setName("Wedding");
 
-        // THEN
-        assertNotNull(saved);
-        assertEquals("Trucco Sposa", saved.getName());
-        verify(categoryRepository, times(1)).save(cat);
+            CategoryDTO outputDto = new CategoryDTO();
+            outputDto.setId(10L);
+            outputDto.setName("Wedding");
 
-    }
+            // Mockiamo i tre passaggi
+            when(categoryMapper.toEntity(any(CategoryDTO.class))).thenReturn(entity);
+            when(categoryRepository.save(entity)).thenReturn(savedEntity);
+            when(categoryMapper.toDto(savedEntity)).thenReturn(outputDto);
+
+            // WHEN
+            CategoryDTO result = categoryService.saveCategory(inputDto);
+
+            // THEN
+            assertNotNull(result);
+            assertEquals(10L, result.getId());
+            verify(categoryRepository).save(any(Category.class));
+            verify(categoryMapper).toEntity(any());
+            verify(categoryMapper).toDto(any());
+        }
 }
