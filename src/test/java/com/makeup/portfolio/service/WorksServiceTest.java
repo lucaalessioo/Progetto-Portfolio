@@ -190,5 +190,25 @@ public class WorksServiceTest {
             verify(categoryRepository, times(1)).findById(1L);
     }
 
-    
+    @Test
+    @DisplayName("Aggiornamento lavoro senza cambiare immagine")
+    void updateWork_WithoutFile() {
+        when(workRepository.findById(1L)).thenReturn(Optional.of(work));
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        when(workRepository.save(any(Work.class))).thenReturn(work);
+
+        WorksDTO updateDto = new WorksDTO();
+        updateDto.setTitle("Titolo Solo Testo");
+        when(worksMapper.toDto(any(Work.class))).thenReturn(updateDto);
+
+        //WHEN - passo null come file
+        WorksDTO result = worksService.updateWork(1L, "Titolo Solo Testo", "Descrizione", 1L,null);
+
+        //THEN
+        assertNotNull(result);
+        assertEquals("Titolo Solo Testo", result.getTitle());
+        assertEquals("/uploads/test.jpg", work.getImageUrl());
+
+        verify(workRepository, times(1)).save(work);
+    }
 }
