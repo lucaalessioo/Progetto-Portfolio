@@ -69,7 +69,21 @@ public class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("Salva una categoria")
     void testSaveCategory() {
+
+        // GIVEN
+        Category cat = new Category();
+        cat.setName("Trucco Sposa");
+        when(categoryRepository.save(cat)).thenReturn(cat);
+
+        // WHEN
+        Category saved = categoryService.saveCategory(cat);
+
+        // THEN
+        assertNotNull(saved);
+        assertEquals("Trucco Sposa", saved.getName());
+        verify(categoryRepository, times(1)).save(cat);
 
     }
 }
