@@ -57,6 +57,7 @@ public class WorksServiceTest {
         work = new Work();
         work.setId(1L);
         work.setTitle("Trucco sposa");
+        work.setDescription("Descrizione Originale");
         work.setImageUrl("/uploads/test.jpg");
 
         worksDto = new WorksDTO();
@@ -145,7 +146,38 @@ public class WorksServiceTest {
     }
 
     @Test
+    @DisplayName("Aggiornamento lavoro con nuova immagine")
     void testUpdateWork() {
+        //GIVEN
+        MockMultipartFile newFile = new MockMultipartFile(
+            "file", "nuova.jpg", "image/jpeg", "nuovo contenuto".getBytes());
 
+            // Moking: cerco il lavoro e la categoria esistenti
+            when(workRepository.findById(1L)).thenReturn(Optional.of(work));
+            when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+            when(workRepository.save(any(Work.class))).thenReturn(work);
+
+            // Preparo un DTO di risposta aggiornato
+            WorksDTO updateDto = new WorksDTO();
+            updateDto.setId(1L);
+            updateDto.setTitle("Titolo Aggiornato");
+            updateDto.setDescription("Nuova Descrizione");
+            when(worksMapper.toDto(any(Work.class))).thenReturn(updateDto);
+
+            //WHEN
+            WorksDTO result = worksService.updateWork(1L, "Titolo Aggiornato", "Nuova Descrizione", 1L, newFile);
+
+
+            //WHEN
+            assertNotNull(result);
+            assertEquals("Titolo Aggiornato", result.getTitle());
+            assertEquals("Nuova Descrizione", result.getDescription());
+
+            // Verifico che i setter sia stati chiamati sull oggetto mock
+            assertEquals("Titolo Aggiornato", work.getTitle());
+            verify(workRepository, times(1)).save(work);
+            verify(categoryRepository, times(1)).findById(1L);
     }
+
+    
 }
