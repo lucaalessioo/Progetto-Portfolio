@@ -158,7 +158,7 @@ public class WorksServiceTest {
 
     @Test
     @DisplayName("Aggiornamento lavoro con nuova immagine")
-    void testUpdateWork() {
+    void testUpdateWork_With_File() {
         //GIVEN
         MockMultipartFile newFile = new MockMultipartFile(
             "file", "nuova.jpg", "image/jpeg", "nuovo contenuto".getBytes());
