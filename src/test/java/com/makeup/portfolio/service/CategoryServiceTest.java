@@ -2,6 +2,7 @@ package com.makeup.portfolio.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -66,22 +67,54 @@ public class CategoryServiceTest {
 
     @Test
     @DisplayName("Ricerca per id della categoria")
-    void testGetCategoryById() {
+    void testGetCategoryById_WhenIdExist_ShouldReturnCategory() {
         //GIVEN
         Category category = new Category();
         category.setId(1L);
+        category.setName("Trucco Sposa");
+
+        CategoryDTO dto = new CategoryDTO();
+        dto.setId(1L);
+        dto.setName("Trucco Sposa");
+
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        when(categoryMapper.toDto(any(Category.class))).thenReturn(dto);
 
         //WHEN
-        Category result = categoryService.getCategoryById(1L);
+        CategoryDTO result = categoryService.getCategoryById(1L);
 
         //THEN
         assertNotNull(result);
         assertEquals(1L, result.getId());
+        assertEquals("Trucco Sposa", result.getName());
 
+        verify(categoryRepository, times(1)).findById(1L);
+        verify(categoryMapper).toDto(category);
 
 
     }
+
+
+        @Test
+        @DisplayName("Ricerca per id della categoria")
+        void testGetCategoryById_WhenIdNotExist_ShouldTrhowException() {
+        //GIVEN
+        Category category = new Category();
+        category.setId(1L);
+        when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
+
+        //WHEN
+        RuntimeException exception = assertThrows(RuntimeException.class,() -> {
+                categoryService.getCategoryById(1L);
+        });
+
+        //THEN
+        assertNotNull(exception);
+        assertEquals("Categoria non trovata con id: 1", exception.getMessage());
+
+    }
+
+
 
     @Test
     @DisplayName("Salva una categoria")

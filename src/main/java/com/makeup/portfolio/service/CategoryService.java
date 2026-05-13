@@ -31,8 +31,9 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category getCategoryById(Long id) {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria non trovata con id: " + id));
-    }
+public CategoryDTO getCategoryById(Long id) {
+    return categoryRepository.findById(id)
+            .map(categoryMapper::toDto) // Converto l entita in dto
+            .orElseThrow(() -> new RuntimeException("Categoria non trovata con id: " + id));
+}
 }
