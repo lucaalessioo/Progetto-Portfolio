@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -176,11 +175,11 @@ public class WorksServiceTest {
             updateDto.setDescription("Nuova Descrizione");
             when(worksMapper.toDto(any(Work.class))).thenReturn(updateDto);
 
-            //WHEN
+           //WHEN
             WorksDTO result = worksService.updateWork(1L, "Titolo Aggiornato", "Nuova Descrizione", 1L, newFile);
 
 
-            //WHEN
+            //THEN
             assertNotNull(result);
             assertEquals("Titolo Aggiornato", result.getTitle());
             assertEquals("Nuova Descrizione", result.getDescription());
@@ -222,6 +221,21 @@ public class WorksServiceTest {
 
         // WHEN THEN
         assertThrows(RuntimeException.class, () -> worksService.updateWork(99L, "Titolo", "Descrizione", 1L, null));
+
+        verify(workRepository, never()).save(any());
+
+    }
+
+    @Test
+    @DisplayName("Aggiornamento fallito: categoria non trovata")
+    void updateWork_CategoryNotFound_ThrowsException() {
+
+        //GIVEN
+        when(workRepository.findById(1L)).thenReturn(Optional.of(work));
+        when(categoryRepository.findById(99L)).thenReturn(Optional.empty());
+
+        // WHEN THEN
+        assertThrows(RuntimeException.class, () -> worksService.updateWork(1L, "Titolo", "Descrizione", 99L, null));
 
         verify(workRepository, never()).save(any());
 
