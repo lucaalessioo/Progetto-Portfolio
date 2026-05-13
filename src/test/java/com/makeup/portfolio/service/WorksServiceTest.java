@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -210,5 +211,19 @@ public class WorksServiceTest {
         assertEquals("/uploads/test.jpg", work.getImageUrl());
 
         verify(workRepository, times(1)).save(work);
+    }
+
+    @Test
+    @DisplayName("Aggiornamento fallito: lavoro non trovato")
+    void updateWork_NotFound_ThrowsException() {
+
+        //GIVEN
+        when(workRepository.findById(99L)).thenReturn(Optional.empty());
+
+        // WHEN THEN
+        assertThrows(RuntimeException.class, () -> worksService.updateWork(99L, "Titolo", "Descrizione", 1L, null));
+
+        verify(workRepository, never()).save(any());
+
     }
 }
