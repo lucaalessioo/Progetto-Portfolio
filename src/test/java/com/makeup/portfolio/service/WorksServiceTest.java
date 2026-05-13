@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -83,7 +83,18 @@ public class WorksServiceTest {
     @Test
     void testGetAllWorks() {
 
-        
+        //GIVEN
+        when(workRepository.findAll()).thenReturn(List.of(work));
+        when(worksMapper.toDto(work)).thenReturn(worksDto);
+
+        //WHEN
+        List<WorksDTO> result = worksService.getAllWorks();
+
+        //THEN
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Trucco Sposa", result.get(0).getTitle());
+        verify(workRepository, times(1)).findAll();
 
     }
 
