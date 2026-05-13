@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,7 +65,21 @@ public class CategoryServiceTest {
 
 
     @Test
+    @DisplayName("Ricerca per id della categoria")
     void testGetCategoryById() {
+        //GIVEN
+        Category category = new Category();
+        category.setId(1L);
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+
+        //WHEN
+        Category result = categoryService.getCategoryById(1L);
+
+        //THEN
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+
+
 
     }
 
