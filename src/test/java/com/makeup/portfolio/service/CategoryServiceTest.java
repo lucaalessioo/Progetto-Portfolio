@@ -134,7 +134,7 @@ public class CategoryServiceTest {
             outputDto.setId(10L);
             outputDto.setName("Wedding");
 
-            // Mockiamo i tre passaggi
+            // Mock dei  tre passaggi
             when(categoryMapper.toEntity(any(CategoryDTO.class))).thenReturn(entity);
             when(categoryRepository.save(entity)).thenReturn(savedEntity);
             when(categoryMapper.toDto(savedEntity)).thenReturn(outputDto);
